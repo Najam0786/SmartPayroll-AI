@@ -60,6 +60,9 @@ streamlit run app.py
 ![HR Policy Q&A (RAG)](assets/dashboard_rag.png)
 *Tab 4 — HR Policy Q&A: plain-English questions answered by Phi-4-mini-instruct via RAG*
 
+![Azure AI Foundry — Phi-4-mini-instruct Monitor](assets/azure_foundry_monitor.png)
+*Live Azure AI Foundry portal: real token usage (887 tokens, 29 requests) and latency metrics confirming production deployment*
+
 ---
 
 ### Tab 1 — Executive Dashboard
