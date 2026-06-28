@@ -1,0 +1,124 @@
+# .github/workflows/ci.yml
+# Runs on every Pull Request to main
+# Checks: code quality (ruff) + unit tests (pytest)
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install quality tools
+        run: pip install ruff==0.3.0
+
+      - name: Run ruff linter
+        run: ruff check src/ tests/ --ignore E501
+
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install pandas==2.2.0
+          pip install numpy==1.26.4
+          pip install scikit-learn==1.4.0
+          pip install xgboost==2.0.3
+          pip install imbalanced-learn==0.11.0
+          pip install pandera==0.18.3
+          pip install pyarrow==15.0.0
+          pip install faker==22.6.0
+          pip install pytest==8.0.2
+          pip install pytest-asyncio==0.23.5
+
+      - name: Create test data
+        run: |
+          mkdir -p data/raw data/processed data/synthetic
+          python -c "
+          import pandas as pd
+          import numpy as np
+
+          # Create minimal test CSV
+          df = pd.DataFrame({
+              'Age': [35, 28, 45, 52, 30, 25, 40, 33, 48, 29,
+                      35, 28, 45, 52, 30, 25, 40, 33, 48, 29],
+              'Attrition': ['Yes','No','No','Yes','No',
+                            'Yes','No','No','Yes','No',
+                            'Yes','No','No','Yes','No',
+                            'Yes','No','No','Yes','No'],
+              'BusinessTravel': ['Travel_Rarely']*20,
+              'DailyRate': [1000]*20,
+              'Department': ['Sales','Research & Development',
+                             'Sales','Human Resources',
+                             'Research & Development']*4,
+              'DistanceFromHome': [5,10,2,20,8]*4,
+              'Education': [3,4,2,3,4]*4,
+              'EducationField': ['Marketing']*20,
+              'EmployeeCount': [1]*20,
+              'EmployeeNumber': list(range(1,21)),
+              'EnvironmentSatisfaction': [3,4,2,1,3]*4,
+              'Gender': ['Male','Female','Male','Female','Male']*4,
+              'HourlyRate': [50,60,45,55,65]*4,
+              'JobInvolvement': [3,4,2,3,4]*4,
+              'JobLevel': [2,3,1,2,3]*4,
+              'JobRole': ['Sales Executive']*20,
+              'JobSatisfaction': [3,4,2,1,4]*4,
+              'MaritalStatus': ['Single','Married','Single',
+                                'Divorced','Married']*4,
+              'MonthlyIncome': [5000,8000,3000,6500,9000]*4,
+              'MonthlyRate': [10000]*20,
+              'NumCompaniesWorked': [2,4,1,3,2]*4,
+              'Over18': ['Y']*20,
+              'OverTime': ['Yes','No','Yes','No','Yes']*4,
+              'PercentSalaryHike': [11,13,15,12,14]*4,
+              'PerformanceRating': [3,4,3,3,4]*4,
+              'RelationshipSatisfaction': [4,3,2,3,4]*4,
+              'StandardHours': [80]*20,
+              'StockOptionLevel': [0,1,2,0,1]*4,
+              'TotalWorkingYears': [10,8,15,12,7]*4,
+              'TrainingTimesLastYear': [2,3,1,2,3]*4,
+              'WorkLifeBalance': [3,4,3,2,3]*4,
+              'YearsAtCompany': [5,6,8,4,3]*4,
+              'YearsInCurrentRole': [3,4,6,2,2]*4,
+              'YearsSinceLastPromotion': [1,2,3,1,0]*4,
+              'YearsWithCurrManager': [3,4,5,2,2]*4,
+          })
+          df.to_csv('data/raw/WA_Fn-UseC_-HR-Employee-Attrition.csv',
+                    index=False)
+          print(f'Test data created: {df.shape}')
+          "
+
+      - name: Run unit tests
+        run: |
+          pytest tests/unit/test_data_pipeline.py -v \
+            --ignore=tests/unit/test_data_pipeline.py \
+            -k "TestValidation or TestCleaning" \
+            --tb=short
