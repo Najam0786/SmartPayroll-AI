@@ -1,0 +1,33 @@
+# Virtual environment — never commit this
+smartpayroll/
+
+# Secrets — never commit this
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# Data files
+data/raw/*.csv
+data/raw/*.parquet
+data/processed/*.parquet
+data/synthetic/*.parquet
+
+# ML artifacts
+*.pkl
+*.joblib
+mlruns/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
