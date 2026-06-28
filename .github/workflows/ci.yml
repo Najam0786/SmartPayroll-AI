@@ -119,6 +119,5 @@ jobs:
       - name: Run unit tests
         run: |
           pytest tests/unit/test_data_pipeline.py -v \
-            --ignore=tests/unit/test_data_pipeline.py \
             -k "TestValidation or TestCleaning" \
             --tb=short

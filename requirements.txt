@@ -7,6 +7,8 @@ pandera==0.18.3
 # Visualisation
 matplotlib==3.8.2
 seaborn==0.13.2
+plotly==5.20.0
+streamlit==1.58.0
 
 # Machine Learning
 scikit-learn==1.4.0
