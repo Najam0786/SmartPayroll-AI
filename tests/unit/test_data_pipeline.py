@@ -67,9 +67,9 @@ class TestValidation:
         from src.data.validate import validate_hr_data
         results = validate_hr_data(sample_raw_df)
         # These checks should always pass on valid data
-        assert results["checks"]["nulls"]["passed"] is True
-        assert results["checks"]["attrition_values"]["passed"] is True
-        assert results["checks"]["age_range"]["passed"] is True
+        assert results["checks"]["nulls"]["passed"]
+        assert results["checks"]["attrition_values"]["passed"]
+        assert results["checks"]["age_range"]["passed"]
 
     def test_row_count_check(self, sample_raw_df):
         from src.data.validate import validate_hr_data
@@ -84,19 +84,19 @@ class TestValidation:
     def test_attrition_values_valid(self, sample_raw_df):
         from src.data.validate import validate_hr_data
         results = validate_hr_data(sample_raw_df)
-        assert results["checks"]["attrition_values"]["passed"] is True
+        assert results["checks"]["attrition_values"]["passed"]
 
     def test_invalid_attrition_fails(self, sample_raw_df):
         from src.data.validate import validate_hr_data
         bad_df = sample_raw_df.copy()
         bad_df.loc[0, "Attrition"] = "Maybe"
         results = validate_hr_data(bad_df)
-        assert results["checks"]["attrition_values"]["passed"] is False
+        assert not results["checks"]["attrition_values"]["passed"]
 
     def test_age_range_valid(self, sample_raw_df):
         from src.data.validate import validate_hr_data
         results = validate_hr_data(sample_raw_df)
-        assert results["checks"]["age_range"]["passed"] is True
+        assert results["checks"]["age_range"]["passed"]
 
     def test_null_introduced_detected(self, sample_raw_df):
         from src.data.validate import validate_hr_data
