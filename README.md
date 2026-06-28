@@ -644,7 +644,7 @@ AI & Data Science Engineer
 Barcelona, Spain
 
 [![GitHub](https://img.shields.io/badge/GitHub-Najam0786-181717?logo=github)](https://github.com/Najam0786)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://linkedin.com/in/nazmulfarooquee)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?logo=linkedin)](https://www.linkedin.com/in/nazmul-farooquee-mba-0b433b1b/)
 
 *Built end-to-end as a portfolio demonstration of Azure AI engineering, ML, and agentic AI capabilities.*
 
