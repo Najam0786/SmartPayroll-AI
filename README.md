@@ -49,6 +49,19 @@ streamlit run app.py
 # → http://localhost:8501
 ```
 
+### Screenshots
+
+![Executive Dashboard](assets/dashboard_executive.png)
+*Tab 1 — Executive Dashboard: live KPIs, attrition by department, salary distributions, overtime impact*
+
+![Charts & Model Performance](assets/dashboard_charts.png)
+*Overtime donut, job satisfaction heatmap, payroll anomaly breakdown, and model performance summary*
+
+![HR Policy Q&A (RAG)](assets/dashboard_rag.png)
+*Tab 4 — HR Policy Q&A: plain-English questions answered by Phi-4-mini-instruct via RAG*
+
+---
+
 ### Tab 1 — Executive Dashboard
 Real-time KPIs drawn from live data: total employees, attrition rate, average salary, anomaly count, and model AUC. Six interactive Plotly charts covering attrition by department, salary distributions, overtime impact (2.9× risk multiplier), job satisfaction heatmap, anomaly type breakdown, and payroll health by department. Full model performance row: AUC, F1, Recall, Precision, Accuracy.
 
@@ -288,6 +301,12 @@ smartpayroll-ai/
 ├── hr_policies/
 │   ├── HR_Policy_Annual_Leave_ES.md  # Spanish annual leave policy (Article 38)
 │   └── HR_Policy_Overtime.md         # EU overtime policy (Working Time Directive)
+│
+├── assets/
+│   ├── dashboard_executive.png       # Screenshot: Executive Dashboard tab
+│   ├── dashboard_charts.png          # Screenshot: charts & model performance
+│   ├── dashboard_rag.png             # Screenshot: HR Policy Q&A (RAG) tab
+│   └── azure_foundry_monitor.png     # Screenshot: live Azure AI Foundry portal
 │
 ├── docs/
 │   ├── eda_01_attrition.png          # Target variable distribution
@@ -611,6 +630,9 @@ Deployed models:
 Deployment type:   Global Standard (serverless, pay-per-use)
 Authentication:    API key via .env (managed identity recommended for production)
 ```
+
+![Azure AI Foundry — Phi-4-mini-instruct Monitor](assets/azure_foundry_monitor.png)
+*Live Azure AI Foundry portal: Phi-4-mini-instruct deployment showing real token usage (887 tokens, 29 requests) and latency metrics (avg 576ms)*
 
 ---
 
