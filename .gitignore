@@ -34,3 +34,10 @@ Thumbs.db
 
 # GitHub snapshots
 .snapshots/
+
+# Claude Code settings
+.claude/
+
+# Type checker cache
+.mypy_cache/
+.ruff_cache/
